@@ -1,6 +1,6 @@
 import express from "express"; 
 import cors from "cors"; 
-import { sumar, restar, multiplicar, dividir } from './matematica.js'; 
+import { sumar, restar, multiplicar, dividir } from './modules/matematica.js'; 
 
 const app = express();
 const port = 3000; 
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/saludar/:nombre', (req, res) => { 
-    res.status(200).send(`Hola ${nombre}`);
+    res.status(200).send(`Hola ${req.params.nombre}`);
 });
 
 app.get('/validarfecha/:ano/:mes/:dia', (req, res) => { 
@@ -25,7 +25,7 @@ app.get('/validarfecha/:ano/:mes/:dia', (req, res) => {
         res.status(400).send('Fecha no válida');
     } else {
         res.status(200).send('Fecha válida');
-    }
+    }   
 });
 
 
