@@ -1,15 +1,20 @@
-export const PI = 3.14;
+// Operaciones matemáticas
 
-export function sumar(x, y) {
-  return x + y;
+export function sumar(n1, n2) {
+    return n1 + n2;
 }
 
-export function restar(x, y) {
-  return x - y;
+export function restar(n1, n2) {
+    return n1 - n2;
 }
 
-export const multiplicar = (a, b) => a * b;
+export function multiplicar(n1, n2) {
+    return n1 * n2;
+}
 
-export const dividir = (a, b) => (b !== 0 ? a / b : "Error: División por cero");
-
-export const numerosTexto = ["dos", "cuatro", "ocho", "diez"];
+export function dividir(n1, n2) {
+    if (n2 === 0) {
+        throw new Error('El divisor no puede ser cero');
+    }
+    return n1 / n2;
+}
