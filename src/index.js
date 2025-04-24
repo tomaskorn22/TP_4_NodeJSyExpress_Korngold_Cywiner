@@ -58,6 +58,54 @@ app.get('/matematica/dividir', (req, res) => {
     }
 });
 
+app.get('/omdb/searchbypage', async (req, res) => {
+    const { search, p } = req.query;
+
+    try {
+        const resultados = await omdb.searchByPage(search, p);
+        res.status(200).json({
+            respuesta: resultados.length > 0,
+            cantidadTotal: resultados.length,
+            datos: resultados
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+app.get('/omdb/searchcomplete', async (req, res) => {
+    const { search } = req.query;
+
+    try {
+        const resultados = await omdb.searchComplete(search);
+        res.status(200).json({
+            respuesta: resultados.length > 0,
+            cantidadTotal: resultados.length,
+            datos: resultados
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+app.get('/omdb/getbyomdbid', async (req, res) => {
+    const { imdbID } = req.query;
+
+    try {
+        const pelicula = await omdb.getByImdbID(imdbID);
+        const hayResultado = pelicula && Object.keys(pelicula).length > 0;
+
+        res.status(200).json({
+            respuesta: hayResultado,
+            cantidadTotal: hayResultado ? 1 : 0,
+            datos: hayResultado ? pelicula : {}
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
+});
+
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
